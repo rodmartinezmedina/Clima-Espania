@@ -10,8 +10,8 @@ const Home = () => {
   return (
     <div>
       <EuiText grow={false}>
-        <h1>Hello from Home component</h1>
-        <h2>Por favor seleccione una ciudad</h2>
+        <h1>Clima en la provincia de Barcelona</h1>
+        <h2>Por favor seleccione un municipio</h2>
       </EuiText>
       <Search />
 

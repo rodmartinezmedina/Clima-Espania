@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <EuiText>
-        <h1>Clima en España</h1>
+        <h1>App Component h1</h1>
       </EuiText>
 
       <Home />

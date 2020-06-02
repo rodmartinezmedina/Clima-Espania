@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/polyfill": "^7.10.1",
     "@elastic/datemath": "^5.0.3",
     "@elastic/eui": "^24.0.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -11,7 +12,7 @@
     "moment": "^2.26.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "^3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

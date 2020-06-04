@@ -7,36 +7,40 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 
 const Search = () => {
   const municipiosContext = useContext(MunicipiosContext);
-  const { searchMunicipios, municipios, dataMunicipiosArray } = MunicipiosState;
+  const { searchMunicipios, municipios } = MunicipiosState;
 
   useEffect(() => {
     return searchMunicipios;
   }, []);
 
+  // MunicipiosContext.municipios.forEach((municipio) => {
+  //   return {
+  //     label: municipio.nombre,
+  //   };
+  // }),
+
   let municipiosFromContext = MunicipiosContext.municipios;
   let municipiosFromState = MunicipiosState.municipios;
+
   console.log(municipiosFromContext);
   console.log(municipiosFromState);
   console.log(municipios);
   console.log(searchMunicipios);
   console.log(MunicipiosState);
-  console.log(dataMunicipiosArray);
-  // const bringMunicipios = municipiosFromState.forEach((municipio) => {
-  //   return {
-  //     label: municipio.NOMBRE,
-  //   };
-  // });
+
+  const bringMunicipios = municipiosFromState.forEach((municipio) => {
+    return {
+      label: municipio.NOMBRE,
+    };
+  });
 
   // console.log(MunicipiosState.searchMunicipios());
 
   const allMunicipios = [
-    { label: "santcugat" },
+    {
+      label: "santcugat",
+    },
     { label: "BARCELONETA" },
-    { label: "BARCE" },
-    { label: "NETA" },
-    { label: "TA" },
-    { label: "BARCELONA" },
-    { label: "BAdalona" },
   ];
 
   const [selectedOptions, setSelected] = useState([]);

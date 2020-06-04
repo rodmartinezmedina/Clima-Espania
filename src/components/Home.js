@@ -4,7 +4,7 @@ import { EuiComboBox, EuiText } from "@elastic/eui";
 import "@babel/polyfill";
 import "@elastic/eui/dist/eui_theme_light.css";
 import Search from "./Search";
-import WeatherCard from "./WeatherCard";
+import MunicipioCard from "./MunicipioCard";
 
 const Home = () => {
   return (
@@ -15,7 +15,7 @@ const Home = () => {
       </EuiText>
       <Search />
 
-      <WeatherCard />
+      <MunicipioCard />
     </div>
   );
 };

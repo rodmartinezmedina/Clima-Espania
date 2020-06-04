@@ -26,7 +26,7 @@ const MunicipiosState = (props) => {
 
     dispatch({
       type: SEARCH_MUNICIPIOS,
-      payload: res.municipios,
+      payload: res.data.municipios,
     });
   };
 
@@ -59,7 +59,7 @@ const MunicipiosState = (props) => {
         dataMunicipiosArray,
       }}
     >
-      {this.props.children}
+      {props.children}
     </MunicipiosContext.Provider>
   );
 };

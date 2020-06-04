@@ -10,24 +10,19 @@ const Search = () => {
   const { searchMunicipios, municipios, dataMunicipiosArray } = MunicipiosState;
 
   useEffect(() => {
-    return searchMunicipios;
+    return municipiosContext.searchMunicipios();
   }, []);
 
   let municipiosFromContext = MunicipiosContext.municipios;
   let municipiosFromState = MunicipiosState.municipios;
-  console.log(municipiosFromContext);
-  console.log(municipiosFromState);
-  console.log(municipios);
-  console.log(searchMunicipios);
-  console.log(MunicipiosState);
-  console.log(dataMunicipiosArray);
-  // const bringMunicipios = municipiosFromState.forEach((municipio) => {
-  //   return {
-  //     label: municipio.NOMBRE,
-  //   };
-  // });
 
-  // console.log(MunicipiosState.searchMunicipios());
+  const bringMunicipios = municipiosContext.municipios.forEach((municipio) => {
+    return {
+      label: municipio.NOMBRE,
+    };
+  });
+
+  console.log(municipiosContext.municipios);
 
   const allMunicipios = [
     { label: "santcugat" },

@@ -1,18 +1,23 @@
 import "@elastic/eui/dist/eui_theme_light.css";
 import "@babel/polyfill";
+import { v4 as uuid } from "uuid";
 import MunicipiosContext from "../contexts/municipiosContext";
 import MunicipiosState from "../contexts/MunicipiosState";
 import MunicipioCard from "../components/MunicipioCard";
-import { EuiComboBox, EuiText } from "@elastic/eui";
+import MunicipioItem from "./MunicipioItem";
+import { EuiComboBox, EuiText, EuiButton } from "@elastic/eui";
 import React, { useState, useEffect, useCallback, useContext } from "react";
 
+// REST API ADRESS FORGETTING WEATHER INFO ABOUT EACH MUNICIPIO OF BARCELONA
+// https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/[ID]
+// 08= BARCELONA PROVINCE CODE IN API
+// ID = CODIGOINE PROPERTY THAT EACH MUNICIPIO HAS
+
 const Search = () => {
+  const id = uuid.v4;
+  //VARIABLES
   const municipiosContext = useContext(MunicipiosContext);
   const { searchMunicipios, municipios } = MunicipiosState;
-
-  useEffect(() => {
-    return municipiosContext.searchMunicipios();
-  }, []);
 
   const municipiosFromContext = municipiosContext.municipios;
 
@@ -20,25 +25,23 @@ const Search = () => {
     return { label: `${municipio.NOMBRE}` };
   });
 
-  console.log(`municipiosFromContext`, municipiosFromContext);
-  console.log(`municipiosNames:`, municipiosNames);
+  //FECTH DATA. ALL MUNICIPIOS
+  useEffect(() => {
+    return municipiosContext.searchMunicipios();
+  }, []);
 
-  const allMunicipios = [
-    { label: "santcugat" },
-    { label: "BARCELONETA" },
-    { label: "BARCE" },
-  ];
-
+  //USESTATE
   const [selectedOptions, setSelected] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [options, setOptions] = useState([]);
   let searchTimeout;
 
+  //FUNCTIONS -
+  // EUI ComboBox
   const onChange = (selectedOptions) => {
     setSelected(selectedOptions);
   };
 
-  // combo-box
   const onSearchChange = useCallback(
     (searchValue) => {
       setLoading(true);
@@ -60,13 +63,52 @@ const Search = () => {
     [municipiosFromContext]
   );
 
+  let namesOfSelected = selectedOptions.map((option) => {
+    return option.label;
+  });
+
+  // let codigoineOfSelected = municipiosFromContext.filter((municipio) => {
+  //   municipio.NOMBRE.includes(namesOfSelected);
+  // });
+
+  let codigoineOfSelected = municipiosFromContext.filter((municipio) => {
+    let codigoineArr = [];
+    namesOfSelected.map((name) => {
+      if (municipio.NOMBRE.includes(name)) {
+        codigoineArr.push(municipio.CODIGOINE);
+      }
+    });
+  });
+
   useEffect(() => {
     // Simulate initial load.
     onSearchChange("");
   }, [onSearchChange]);
 
-  console.log(`selectedOptions`, selectedOptions);
+  //FORM SUBMIT
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(`selected options from submit`, selectedOptions);
 
+    return (
+      <div>
+        {selectedOptions.map((option) => (
+          <>
+            {/* <MunicipioItem key={id} option={option.label} /> */}
+            <p>zxdgszdfszgsz</p>
+          </>
+        ))}
+      </div>
+    );
+  };
+
+  //CONSOLE.LOGS
+  console.log(`municipiosFromContext`, municipiosFromContext);
+  console.log(`municipiosNames:`, municipiosNames);
+  console.log(`selectedOptions`, selectedOptions);
+  console.log(`namesOfSelected`, namesOfSelected);
+  console.log(`codigoineOfSelected`, codigoineOfSelected);
+  //RENDER
   return (
     <div>
       <EuiComboBox
@@ -78,8 +120,18 @@ const Search = () => {
         onChange={onChange}
         onSearchChange={onSearchChange}
       />
-      <button>Ver Clima del municipio seleccionado</button>
-      <MunicipioCard description={`${selectedOptions}`} />
+      <form onSubmit={onSubmit} className="form text-center">
+        <input
+          type="submit"
+          value="Mostrar Informacion meteorologica"
+          className="btn btn-primary btn-block"
+        />
+      </form>
+      {/* <EuiButton fill onClick={() => window.alert("Button clicked")}>
+        Filled
+      </EuiButton> */}
+
+      <MunicipioItem label={selectedOptions.label} />
     </div>
   );
 };

@@ -14,15 +14,14 @@ const Search = () => {
   }, []);
 
   let municipiosFromContext = MunicipiosContext.municipios;
-  let municipiosFromState = MunicipiosState.municipios;
+  // let municipiosFromState = MunicipiosState.municipios;
 
-  const bringMunicipios = municipiosContext.municipios.forEach((municipio) => {
-    return {
-      label: municipio.NOMBRE,
-    };
-  });
+  const bringOneMunicipio = municipiosContext.municipios[0];
 
-  console.log(municipiosContext.municipios);
+  // { label: `"${bringOneMunicipio.NOMBRE}"` },
+
+  console.log(`municipiosContext.municipios`, municipiosContext.municipios);
+  console.log(`const bringOneMunicipio:`, bringOneMunicipio);
 
   const allMunicipios = [
     { label: "santcugat" },

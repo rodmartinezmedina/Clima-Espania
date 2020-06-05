@@ -7,21 +7,27 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 
 const Search = () => {
   const municipiosContext = useContext(MunicipiosContext);
-  const { searchMunicipios, municipios, dataMunicipiosArray } = MunicipiosState;
+  const { searchMunicipios, municipios } = MunicipiosState;
 
   useEffect(() => {
     return municipiosContext.searchMunicipios();
   }, []);
 
-  let municipiosFromContext = MunicipiosContext.municipios;
-  // let municipiosFromState = MunicipiosState.municipios;
-
+  const municipiosFromContext = municipiosContext.municipios;
   const bringOneMunicipio = municipiosContext.municipios[0];
 
-  // { label: `"${bringOneMunicipio.NOMBRE}"` },
+  // let municipiosNames = municipiosFromContext.map((municipio) => {
+  //   return `label: ${municipio.NOMBRE}`;
+  // });
+  // const municipiosNamesArr = [municipiosNames[0]];
 
-  console.log(`municipiosContext.municipios`, municipiosContext.municipios);
+  let municipiosNamesCopy = municipiosFromContext.map((municipio) => {
+    return { label: municipio.NOMBRE };
+  });
+
+  console.log(`municipiosFromContext`, municipiosFromContext);
   console.log(`const bringOneMunicipio:`, bringOneMunicipio);
+  console.log(`municipiosNamesCopy:`, municipiosNamesCopy);
 
   const allMunicipios = [
     { label: "santcugat" },
@@ -54,7 +60,7 @@ const Search = () => {
       // Simulate a remotely-executed search.
       setLoading(false);
       setOptions(
-        allMunicipios.filter((option) =>
+        municipiosNamesCopy.filter((option) =>
           option.label.toLowerCase().includes(searchValue.toLowerCase())
         )
       );

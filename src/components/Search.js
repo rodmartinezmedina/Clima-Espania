@@ -67,18 +67,22 @@ const Search = () => {
     return option.label;
   });
 
-  // let codigoineOfSelected = municipiosFromContext.filter((municipio) => {
-  //   municipio.NOMBRE.includes(namesOfSelected);
-  // });
-
+  //THIS WORKS FOR GETTING CODIGOINE IF I CHOOSE ONLY ONE MUNICIPIO.
+  // DO NOT DELETE
+  //IF I CHOOSE 2 MUNICIPIOS IT DOESNT WORK.
+  // LIMIT POSIBLE SELECTION TO 1 MUNICIPIO
   let codigoineOfSelected = municipiosFromContext.filter((municipio) => {
-    let codigoineArr = [];
-    namesOfSelected.map((name) => {
-      if (municipio.NOMBRE.includes(name)) {
-        codigoineArr.push(municipio.CODIGOINE);
-      }
-    });
+    return municipio.NOMBRE.includes(namesOfSelected);
   });
+
+  // let codigoineOfSelected = municipiosFromContext.filter((municipio) => {
+  //   let codigoineArr = [];
+  //   namesOfSelected.map((name) => {
+  //     if (municipio.NOMBRE.includes(name)) {
+  //       codigoineArr.push(municipio.CODIGOINE, "aasdasda");
+  //     }
+  //   });
+  // });
 
   useEffect(() => {
     // Simulate initial load.
@@ -90,16 +94,16 @@ const Search = () => {
     e.preventDefault();
     console.log(`selected options from submit`, selectedOptions);
 
-    return (
-      <div>
-        {selectedOptions.map((option) => (
-          <>
-            {/* <MunicipioItem key={id} option={option.label} /> */}
-            <p>zxdgszdfszgsz</p>
-          </>
-        ))}
-      </div>
-    );
+    // return (
+    //   <div>
+    //     {selectedOptions.map((option) => (
+    //       <>
+    //         {/* <MunicipioItem key={id} option={option.label} /> */}
+    //         <p>zxdgszdfszgsz</p>
+    //       </>
+    //     ))}
+    //   </div>
+    // );
   };
 
   //CONSOLE.LOGS

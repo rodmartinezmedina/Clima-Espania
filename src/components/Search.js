@@ -17,7 +17,12 @@ const Search = () => {
   const id = uuid.v4;
   //VARIABLES
   const municipiosContext = useContext(MunicipiosContext);
-  const { searchMunicipios, municipios } = MunicipiosState;
+  const {
+    searchMunicipios,
+    getMunicipio,
+    municipios,
+    isSelected,
+  } = MunicipiosState;
 
   const municipiosFromContext = municipiosContext.municipios;
 
@@ -67,19 +72,30 @@ const Search = () => {
     return option.label;
   });
 
-  //THIS WORKS FOR GETTING CODIGOINE IF I CHOOSE ONLY ONE MUNICIPIO.
-  // DO NOT DELETE
-  //IF I CHOOSE 2 MUNICIPIOS IT DOESNT WORK.
-  // LIMIT POSIBLE SELECTION TO 1 MUNICIPIO
-  let codigoineOfSelected = municipiosFromContext.filter((municipio) => {
-    return municipio.NOMBRE.includes(namesOfSelected);
+  // trying to  GET CODIGOINE of chosen MUNICIPIO. DO NOT DELETE
+  //with codigoine i should be able to call the second api adress for getting weather data
+  //im getting the whole array. all undefined except the one that matches name. i get codigoine of that one.
+  let codigoineOfSelected = municipiosFromContext.map((municipio) => {
+    let municipioCodigoine;
+    if (municipio.NOMBRE.includes(namesOfSelected)) {
+      municipioCodigoine = municipio.CODIGOINE;
+      return municipioCodigoine;
+    }
   });
+
+  let weatherOfSelected = getMunicipio;
+
+  // let codigoineOfSelected = municipiosFromContext.filter((municipio) => {
+  //   if (municipio.NOMBRE.includes(namesOfSelected)) {
+  //     return municipio.CODIGOINE;
+  //   }
+  // });
 
   // let codigoineOfSelected = municipiosFromContext.filter((municipio) => {
   //   let codigoineArr = [];
   //   namesOfSelected.map((name) => {
   //     if (municipio.NOMBRE.includes(name)) {
-  //       codigoineArr.push(municipio.CODIGOINE, "aasdasda");
+  //       codigoineArr.push(municipio.CODIGOINE);
   //     }
   //   });
   // });
@@ -93,17 +109,7 @@ const Search = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(`selected options from submit`, selectedOptions);
-
-    // return (
-    //   <div>
-    //     {selectedOptions.map((option) => (
-    //       <>
-    //         {/* <MunicipioItem key={id} option={option.label} /> */}
-    //         <p>zxdgszdfszgsz</p>
-    //       </>
-    //     ))}
-    //   </div>
-    // );
+    //HERE I SHOULD CALL GETMUNICIPIO SOMEHOW FOR GETTING WEATHER DATA FROM CHOSEN MUNICIPIO
   };
 
   //CONSOLE.LOGS
@@ -112,6 +118,7 @@ const Search = () => {
   console.log(`selectedOptions`, selectedOptions);
   console.log(`namesOfSelected`, namesOfSelected);
   console.log(`codigoineOfSelected`, codigoineOfSelected);
+
   //RENDER
   return (
     <div>
@@ -134,8 +141,12 @@ const Search = () => {
       {/* <EuiButton fill onClick={() => window.alert("Button clicked")}>
         Filled
       </EuiButton> */}
-
-      <MunicipioItem label={selectedOptions.label} />
+      <MunicipioItem
+        nombre={namesOfSelected}
+        tempActual="insertar data real de api"
+        lluvia="insertar data real de api"
+      />
+      {/* label={selectedOptions.label} */}
     </div>
   );
 };

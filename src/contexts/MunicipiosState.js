@@ -13,6 +13,7 @@ const MunicipiosState = (props) => {
   const initialState = {
     municipios: [],
     municipio: {},
+    isSelected: false,
   };
 
   const [state, dispatch] = useReducer(MunicipiosReducer, initialState);
@@ -34,6 +35,7 @@ const MunicipiosState = (props) => {
   const getMunicipio = async (municipio) => {
     const res = await axios.get(
       `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
+      // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
       //CODIGOINE is in this REST API kind of the ID for each municipio.
       //I intent to use this later to get the weather conditions from each municipio.
     );
@@ -53,6 +55,7 @@ const MunicipiosState = (props) => {
       value={{
         municipios: state.municipios,
         municipio: state.municipio,
+        isSelected: state.isSelected,
         searchMunicipios,
         getMunicipio,
         clearMunicipios,

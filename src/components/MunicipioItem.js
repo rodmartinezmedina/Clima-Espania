@@ -7,8 +7,9 @@ const MunicipioItem = (props) => {
 
   return (
     <div>
-      <h1>Title from MunicipioItem.js</h1>
-      <h3> {props.label} </h3>
+      <h1>Nombre de municipio: {props.nombre}</h1>
+      <h2> Temperatura Actual: {props.tempActual}</h2>
+      <h2>Probabilidades de lluvia: {props.lluvia}</h2>
     </div>
   );
 };

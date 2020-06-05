@@ -2,6 +2,7 @@ import "@elastic/eui/dist/eui_theme_light.css";
 import "@babel/polyfill";
 import MunicipiosContext from "../contexts/municipiosContext";
 import MunicipiosState from "../contexts/MunicipiosState";
+import MunicipioCard from "../components/MunicipioCard";
 import { EuiComboBox, EuiText } from "@elastic/eui";
 import React, { useState, useEffect, useCallback, useContext } from "react";
 
@@ -14,14 +15,12 @@ const Search = () => {
   }, []);
 
   const municipiosFromContext = municipiosContext.municipios;
-  const bringOneMunicipio = municipiosContext.municipios[0];
 
   let municipiosNames = municipiosFromContext.map((municipio) => {
     return { label: `${municipio.NOMBRE}` };
   });
 
   console.log(`municipiosFromContext`, municipiosFromContext);
-  console.log(`const bringOneMunicipio:`, bringOneMunicipio);
   console.log(`municipiosNames:`, municipiosNames);
 
   const allMunicipios = [
@@ -66,6 +65,8 @@ const Search = () => {
     onSearchChange("");
   }, [onSearchChange]);
 
+  console.log(`selectedOptions`, selectedOptions);
+
   return (
     <div>
       <EuiComboBox
@@ -77,7 +78,8 @@ const Search = () => {
         onChange={onChange}
         onSearchChange={onSearchChange}
       />
-      <button>Lista de municipios</button>
+      <button>Ver Clima del municipio seleccionado</button>
+      <MunicipioCard description={`${selectedOptions}`} />
     </div>
   );
 };

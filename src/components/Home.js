@@ -14,8 +14,6 @@ const Home = () => {
         <h2>Por favor seleccione un municipio</h2>
       </EuiText>
       <Search />
-
-      <MunicipioCard />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { EuiCard, EuiIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
+import Search from "./Search";
 
 const WeatherCard = () => {
   return (

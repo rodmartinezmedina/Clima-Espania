@@ -16,27 +16,18 @@ const Search = () => {
   const municipiosFromContext = municipiosContext.municipios;
   const bringOneMunicipio = municipiosContext.municipios[0];
 
-  // let municipiosNames = municipiosFromContext.map((municipio) => {
-  //   return `label: ${municipio.NOMBRE}`;
-  // });
-  // const municipiosNamesArr = [municipiosNames[0]];
-
-  let municipiosNamesCopy = municipiosFromContext.map((municipio) => {
-    return { label: municipio.NOMBRE };
+  let municipiosNames = municipiosFromContext.map((municipio) => {
+    return { label: `${municipio.NOMBRE}` };
   });
 
   console.log(`municipiosFromContext`, municipiosFromContext);
   console.log(`const bringOneMunicipio:`, bringOneMunicipio);
-  console.log(`municipiosNamesCopy:`, municipiosNamesCopy);
+  console.log(`municipiosNames:`, municipiosNames);
 
   const allMunicipios = [
     { label: "santcugat" },
     { label: "BARCELONETA" },
     { label: "BARCE" },
-    { label: "NETA" },
-    { label: "TA" },
-    { label: "BARCELONA" },
-    { label: "BAdalona" },
   ];
 
   const [selectedOptions, setSelected] = useState([]);
@@ -60,11 +51,11 @@ const Search = () => {
       // Simulate a remotely-executed search.
       setLoading(false);
       setOptions(
-        municipiosNamesCopy.filter((option) =>
+        municipiosNames.filter((option) =>
           option.label.toLowerCase().includes(searchValue.toLowerCase())
         )
       );
-    }, 1200);
+    }, 200);
   }, []);
 
   useEffect(() => {

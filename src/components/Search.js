@@ -40,23 +40,26 @@ const Search = () => {
   };
 
   // combo-box
-  const onSearchChange = useCallback((searchValue) => {
-    setLoading(true);
-    setOptions([]);
+  const onSearchChange = useCallback(
+    (searchValue) => {
+      setLoading(true);
+      setOptions([]);
 
-    clearTimeout(searchTimeout);
+      clearTimeout(searchTimeout);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    searchTimeout = setTimeout(() => {
-      // Simulate a remotely-executed search.
-      setLoading(false);
-      setOptions(
-        municipiosNames.filter((option) =>
-          option.label.toLowerCase().includes(searchValue.toLowerCase())
-        )
-      );
-    }, 200);
-  }, []);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      searchTimeout = setTimeout(() => {
+        // Simulate a remotely-executed search.
+        setLoading(false);
+        setOptions(
+          municipiosNames.filter((option) =>
+            option.label.toLowerCase().includes(searchValue.toLowerCase())
+          )
+        );
+      }, 200);
+    },
+    [municipiosFromContext]
+  );
 
   useEffect(() => {
     // Simulate initial load.

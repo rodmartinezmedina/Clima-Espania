@@ -1,7 +1,6 @@
 import "@elastic/eui/dist/eui_theme_light.css";
 import "@babel/polyfill";
 import axios from "axios";
-import { v4 as uuid } from "uuid";
 import MunicipiosContext from "../contexts/municipiosContext";
 import MunicipiosState from "../contexts/MunicipiosState";
 import MunicipioCard from "../components/MunicipioCard";
@@ -15,9 +14,9 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 // ID = CODIGOINE PROPERTY THAT EACH MUNICIPIO HAS
 
 const Search = () => {
-  const id = uuid.v4;
   //VARIABLES
   const municipiosContext = useContext(MunicipiosContext);
+
   const {
     searchMunicipios,
     getMunicipio,
@@ -26,7 +25,7 @@ const Search = () => {
   } = MunicipiosState;
 
   const municipiosFromContext = municipiosContext.municipios;
-  const municipioFromContext = municipiosContext.municipio;
+  const oneMunicipioFromContext = municipiosContext.municipio;
 
   let municipiosNames = municipiosFromContext.map((municipio) => {
     return { label: `${municipio.NOMBRE}` };
@@ -70,13 +69,12 @@ const Search = () => {
     [municipiosFromContext]
   );
 
+  //GETS NAME OF SELECTED MUNICIPIO
   let namesOfSelected = selectedOptions.map((option) => {
     return option.label;
   });
 
   // GET CODIGOINE of ALL MUNICIPIOS. DO NOT DELETE
-  //with codigoine i should be able to call the second api adress for getting weather data
-  //im getting the whole array.
   let allCodigoines = municipiosFromContext.map((municipio) => {
     let municipioCodigoine;
     if (municipio.NOMBRE.includes(namesOfSelected)) {
@@ -90,18 +88,25 @@ const Search = () => {
     return codigoIne !== undefined;
   });
 
-  //BORRA LOS CEROS EXTRAS DEL CODIGO INE. SI UNO INGRESA EL NUMERO TAL COMO ES LA API NO LO TOMA
+  //BORRA LOS CEROS EXTRAS DEL CODIGO INE. SI UNO INGRESA EL NUMERO TAL COMO ES LA API NO LO RECIBE
   let codigoIneNoZeros = codigoineOfSelected.map((each) =>
     each.split("").splice(0, 5).join("")
   );
 
-  const getWeatherOfMunicipio = async () => {
+  let oneMunicipioWeather;
+
+  //GET MUNICIPIO FUNCTION
+  // municipiosContext.getMunicipio({namesOfSelected}.{codigoineOfSelected});
+
+  // WORKAROUND GET WEATHER OF MUNICIPIO
+  const getWeatherOfMunicipio = async (municipio) => {
     const res = await axios.get(
       `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${codigoIneNoZeros}`
       // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
-      //CODIGOINE is in this REST API kind of the ID for each municipio.
     );
-    console.log(res.data);
+    oneMunicipioWeather = res.data;
+    console.log(`getWeatherOfMunicipio(). selected municipio data`, res.data);
+    console.log(`oneMunicipioWeather`, oneMunicipioWeather);
   };
 
   useEffect(() => {
@@ -115,22 +120,15 @@ const Search = () => {
     console.log(`selected options from submit`, selectedOptions);
     console.log(`codigoineOfSelected from submit`, codigoineOfSelected);
     console.log(`codigoIneNoZeros from submit`, codigoIneNoZeros);
-    console.log(`getMunicipio function from context`, getMunicipio);
-    console.log(
-      `municipioFromContext`,
-      municipioFromContext.temperatura_actual
-    );
+    console.log(`oneMunicipioFromContext`, oneMunicipioFromContext.municipio);
     getWeatherOfMunicipio();
-    // let weatherOfSelected = municipiosContext.getMunicipio();
   };
 
   //CONSOLE.LOGS
-  // console.log(`municipiosFromContext`, municipiosFromContext);
-  // console.log(`municipiosNames:`, municipiosNames);
   console.log(`selectedOptions`, selectedOptions);
   console.log(`namesOfSelected`, namesOfSelected);
   console.log(`codigoineOfSelected`, codigoineOfSelected);
-  // console.log(`getMunicipio`, municipiosContext.getMunicipio());
+
   //RENDER
   return (
     <div>
@@ -153,7 +151,8 @@ const Search = () => {
 
       <MunicipioItem
         nombre={namesOfSelected}
-        tempActual={municipioFromContext.temperatura_actual}
+        tempActual="dfhsdf"
+        // tempActual="insertar data real de api"
         lluvia="insertar data real de api"
       />
       {/* label={selectedOptions.label} */}

@@ -26,6 +26,7 @@ const Search = () => {
   } = MunicipiosState;
 
   const municipiosFromContext = municipiosContext.municipios;
+  const municipioFromContext = municipiosContext.municipio;
 
   let municipiosNames = municipiosFromContext.map((municipio) => {
     return { label: `${municipio.NOMBRE}` };
@@ -100,7 +101,7 @@ const Search = () => {
       // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
       //CODIGOINE is in this REST API kind of the ID for each municipio.
     );
-    console.log(res.data.municipio);
+    console.log(res.data);
   };
 
   useEffect(() => {
@@ -114,6 +115,11 @@ const Search = () => {
     console.log(`selected options from submit`, selectedOptions);
     console.log(`codigoineOfSelected from submit`, codigoineOfSelected);
     console.log(`codigoIneNoZeros from submit`, codigoIneNoZeros);
+    console.log(`getMunicipio function from context`, getMunicipio);
+    console.log(
+      `municipioFromContext`,
+      municipioFromContext.temperatura_actual
+    );
     getWeatherOfMunicipio();
     // let weatherOfSelected = municipiosContext.getMunicipio();
   };
@@ -124,6 +130,7 @@ const Search = () => {
   console.log(`selectedOptions`, selectedOptions);
   console.log(`namesOfSelected`, namesOfSelected);
   console.log(`codigoineOfSelected`, codigoineOfSelected);
+  // console.log(`getMunicipio`, municipiosContext.getMunicipio());
   //RENDER
   return (
     <div>
@@ -146,7 +153,7 @@ const Search = () => {
 
       <MunicipioItem
         nombre={namesOfSelected}
-        tempActual="insertar data real de api"
+        tempActual={municipioFromContext.temperatura_actual}
         lluvia="insertar data real de api"
       />
       {/* label={selectedOptions.label} */}

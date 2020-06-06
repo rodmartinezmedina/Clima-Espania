@@ -39,8 +39,8 @@ const MunicipiosState = (props) => {
       //CODIGOINE is in this REST API kind of the ID for each municipio.
       //I intent to use this later to get the weather conditions from each municipio.
     );
-
-    dispatch({ type: GET_MUNICIPIO, payload: res.municipio });
+    console.log(res);
+    dispatch({ type: GET_MUNICIPIO, payload: res.data });
   };
 
   const dataMunicipiosArray = [searchMunicipios];

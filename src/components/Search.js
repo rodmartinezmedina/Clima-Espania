@@ -13,6 +13,8 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 // 08= BARCELONA PROVINCE CODE IN API
 // ID = CODIGOINE PROPERTY THAT EACH MUNICIPIO HAS
 
+//BRANCH build-card
+
 const Search = () => {
   //VARIABLES
   const municipiosContext = useContext(MunicipiosContext);
@@ -119,27 +121,14 @@ const Search = () => {
   //FORM SUBMIT
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(`ONSUBMIT---------------------------------------`);
     console.log(`selected options from submit`, selectedOptions);
     console.log(`codigoineOfSelected from submit`, codigoineOfSelected);
     console.log(`codigoIneNoZeros from submit`, codigoIneNoZeros);
-    console.log(
-      `oneMunicipioFromContext from submit`,
-      oneMunicipioFromContext.municipio
-    );
+
     getWeatherOfMunicipio();
-    console.log(`oneMunicipioWeather`, oneMunicipioWeather);
-    // municipiosContext.getMunicipio(namesOfSelected.codigoineOfSelected);
-    // console.log(namesOfSelected.codigoineOfSelected);
+    municipiosContext.getMunicipio(oneMunicipioFromContext.codigoineOfSelected);
   };
 
-  //CONSOLE.LOGS
-  // console.log(`selectedOptions`, selectedOptions);
-  // console.log(`namesOfSelected`, namesOfSelected);
-  // console.log(`codigoineOfSelected`, codigoineOfSelected);
-  // console.log(`oneMunicipioWeather`, oneMunicipioWeather);
-
-  // {(oneMunicipioWeather !== undefined)  ? ( {const { temperatura_actual, lluvia } = oneMunicipioWeather}) : (console.log('hiiiiiiiiii'))}
   //RENDER
   return (
     <div>
@@ -167,10 +156,8 @@ const Search = () => {
             ? "todavia esta undefined"
             : `${oneMunicipioWeather.municipio}`
         }
-        // tempActual="insertar data real de api"
         lluvia="insertar data real de api"
       />
-      {/* label={selectedOptions.label} */}
     </div>
   );
 };

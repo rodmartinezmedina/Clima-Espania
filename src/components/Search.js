@@ -73,9 +73,9 @@ const Search = () => {
     return option.label;
   });
 
-  // trying to  GET CODIGOINE of chosen MUNICIPIO. DO NOT DELETE
+  // GET CODIGOINE of ALL MUNICIPIOS. DO NOT DELETE
   //with codigoine i should be able to call the second api adress for getting weather data
-  //im getting the whole array. all undefined except the one that matches name. i get codigoine of that one.
+  //im getting the whole array.
   let allCodigoines = municipiosFromContext.map((municipio) => {
     let municipioCodigoine;
     if (municipio.NOMBRE.includes(namesOfSelected)) {
@@ -89,6 +89,7 @@ const Search = () => {
     return codigoIne !== undefined;
   });
 
+  //BORRA LOS CEROS EXTRAS DEL CODIGO INE. SI UNO INGRESA EL NUMERO TAL COMO ES LA API NO LO TOMA
   let codigoIneNoZeros = codigoineOfSelected.map((each) =>
     each.split("").splice(0, 5).join("")
   );
@@ -98,7 +99,6 @@ const Search = () => {
       `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${codigoIneNoZeros}`
       // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
       //CODIGOINE is in this REST API kind of the ID for each municipio.
-      //I intent to use this later to get the weather conditions from each municipio.
     );
     console.log(res.data.municipio);
   };
@@ -116,8 +116,6 @@ const Search = () => {
     console.log(`codigoIneNoZeros from submit`, codigoIneNoZeros);
     getWeatherOfMunicipio();
     // let weatherOfSelected = municipiosContext.getMunicipio();
-
-    //HERE I SHOULD CALL GETMUNICIPIO SOMEHOW FOR GETTING WEATHER DATA FROM CHOSEN MUNICIPIO
   };
 
   //CONSOLE.LOGS
@@ -145,9 +143,7 @@ const Search = () => {
           className="btn btn-primary btn-block"
         />
       </form>
-      {/* <EuiButton fill onClick={() => window.alert("Button clicked")}>
-        Filled
-      </EuiButton> */}
+
       <MunicipioItem
         nombre={namesOfSelected}
         tempActual="insertar data real de api"

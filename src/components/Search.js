@@ -75,7 +75,7 @@ const Search = () => {
   // trying to  GET CODIGOINE of chosen MUNICIPIO. DO NOT DELETE
   //with codigoine i should be able to call the second api adress for getting weather data
   //im getting the whole array. all undefined except the one that matches name. i get codigoine of that one.
-  let codigoineOfSelected = municipiosFromContext.map((municipio) => {
+  let allCodigoines = municipiosFromContext.map((municipio) => {
     let municipioCodigoine;
     if (municipio.NOMBRE.includes(namesOfSelected)) {
       municipioCodigoine = municipio.CODIGOINE;
@@ -83,22 +83,10 @@ const Search = () => {
     }
   });
 
-  let weatherOfSelected = getMunicipio;
-
-  // let codigoineOfSelected = municipiosFromContext.filter((municipio) => {
-  //   if (municipio.NOMBRE.includes(namesOfSelected)) {
-  //     return municipio.CODIGOINE;
-  //   }
-  // });
-
-  // let codigoineOfSelected = municipiosFromContext.filter((municipio) => {
-  //   let codigoineArr = [];
-  //   namesOfSelected.map((name) => {
-  //     if (municipio.NOMBRE.includes(name)) {
-  //       codigoineArr.push(municipio.CODIGOINE);
-  //     }
-  //   });
-  // });
+  //GETS CODIGOINE OF SELECTED ELEMENT/S
+  let codigoineOfSelected = allCodigoines.filter((codigoIne) => {
+    return codigoIne !== undefined;
+  });
 
   useEffect(() => {
     // Simulate initial load.
@@ -109,16 +97,20 @@ const Search = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(`selected options from submit`, selectedOptions);
+    console.log(`codigoineOfSelected`, codigoineOfSelected);
+    let weatherOfSelected = municipiosContext.getMunicipio(
+      `${codigoineOfSelected}`
+    );
+
     //HERE I SHOULD CALL GETMUNICIPIO SOMEHOW FOR GETTING WEATHER DATA FROM CHOSEN MUNICIPIO
   };
 
   //CONSOLE.LOGS
-  console.log(`municipiosFromContext`, municipiosFromContext);
-  console.log(`municipiosNames:`, municipiosNames);
+  // console.log(`municipiosFromContext`, municipiosFromContext);
+  // console.log(`municipiosNames:`, municipiosNames);
   console.log(`selectedOptions`, selectedOptions);
   console.log(`namesOfSelected`, namesOfSelected);
   console.log(`codigoineOfSelected`, codigoineOfSelected);
-
   //RENDER
   return (
     <div>

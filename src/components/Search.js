@@ -1,5 +1,6 @@
 import "@elastic/eui/dist/eui_theme_light.css";
 import "@babel/polyfill";
+import axios from "axios";
 import { v4 as uuid } from "uuid";
 import MunicipiosContext from "../contexts/municipiosContext";
 import MunicipiosState from "../contexts/MunicipiosState";
@@ -88,6 +89,20 @@ const Search = () => {
     return codigoIne !== undefined;
   });
 
+  let codigoIneNoZeros = codigoineOfSelected.map((each) =>
+    each.split("").splice(0, 5).join("")
+  );
+
+  const getWeatherOfMunicipio = async () => {
+    const res = await axios.get(
+      `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${codigoIneNoZeros}`
+      // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
+      //CODIGOINE is in this REST API kind of the ID for each municipio.
+      //I intent to use this later to get the weather conditions from each municipio.
+    );
+    console.log(res.data.municipio);
+  };
+
   useEffect(() => {
     // Simulate initial load.
     onSearchChange("");
@@ -97,10 +112,10 @@ const Search = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(`selected options from submit`, selectedOptions);
-    console.log(`codigoineOfSelected`, codigoineOfSelected);
-    let weatherOfSelected = municipiosContext.getMunicipio(
-      `${codigoineOfSelected}`
-    );
+    console.log(`codigoineOfSelected from submit`, codigoineOfSelected);
+    console.log(`codigoIneNoZeros from submit`, codigoIneNoZeros);
+    getWeatherOfMunicipio();
+    // let weatherOfSelected = municipiosContext.getMunicipio();
 
     //HERE I SHOULD CALL GETMUNICIPIO SOMEHOW FOR GETTING WEATHER DATA FROM CHOSEN MUNICIPIO
   };

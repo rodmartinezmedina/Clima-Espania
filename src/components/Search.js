@@ -21,6 +21,7 @@ const Search = () => {
     searchMunicipios,
     getMunicipio,
     municipios,
+    municipio,
     isSelected,
   } = MunicipiosState;
 
@@ -105,6 +106,7 @@ const Search = () => {
       // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
     );
     oneMunicipioWeather = res.data;
+    municipio = res.data;
     console.log(`getWeatherOfMunicipio(). selected municipio data`, res.data);
     return res.data;
   };
@@ -114,17 +116,10 @@ const Search = () => {
     onSearchChange("");
   }, [onSearchChange]);
 
-  // useEffect(() => {
-  //   // Simulate initial load.
-  //   console.log(
-  //     `municipiosContext.getMunicipio()`,
-  //     municipiosContext.getMunicipio()
-  //   );
-  // }, [onChange]);
-
   //FORM SUBMIT
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(`ONSUBMIT---------------------------------------`);
     console.log(`selected options from submit`, selectedOptions);
     console.log(`codigoineOfSelected from submit`, codigoineOfSelected);
     console.log(`codigoIneNoZeros from submit`, codigoIneNoZeros);
@@ -139,10 +134,10 @@ const Search = () => {
   };
 
   //CONSOLE.LOGS
-  console.log(`selectedOptions`, selectedOptions);
-  console.log(`namesOfSelected`, namesOfSelected);
-  console.log(`codigoineOfSelected`, codigoineOfSelected);
-  console.log(`oneMunicipioWeather`, oneMunicipioWeather);
+  // console.log(`selectedOptions`, selectedOptions);
+  // console.log(`namesOfSelected`, namesOfSelected);
+  // console.log(`codigoineOfSelected`, codigoineOfSelected);
+  // console.log(`oneMunicipioWeather`, oneMunicipioWeather);
 
   // {(oneMunicipioWeather !== undefined)  ? ( {const { temperatura_actual, lluvia } = oneMunicipioWeather}) : (console.log('hiiiiiiiiii'))}
   //RENDER
@@ -170,7 +165,7 @@ const Search = () => {
         tempActual={
           oneMunicipioWeather === undefined
             ? "todavia esta undefined"
-            : `${municipiosContext.municipio.temperatura_actual}`
+            : `${oneMunicipioWeather.municipio}`
         }
         // tempActual="insertar data real de api"
         lluvia="insertar data real de api"

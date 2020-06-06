@@ -34,7 +34,7 @@ const MunicipiosState = (props) => {
   //Get Municipio
   const getMunicipio = async (municipio) => {
     const res = await axios.get(
-      `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
+      `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio}`
       // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
     );
     console.log(`getMunicipio complete res`, res);

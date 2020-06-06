@@ -7,6 +7,7 @@ import MunicipioCard from "../components/MunicipioCard";
 import MunicipioItem from "./MunicipioItem";
 import { EuiComboBox, EuiText, EuiButton } from "@elastic/eui";
 import React, { useState, useEffect, useCallback, useContext } from "react";
+import municipiosContext from "../contexts/municipiosContext";
 
 // REST API ADRESS FORGETTING WEATHER INFO ABOUT EACH MUNICIPIO OF BARCELONA
 // https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/[ID]
@@ -14,6 +15,16 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 // ID = CODIGOINE PROPERTY THAT EACH MUNICIPIO HAS
 
 //BRANCH build-card
+//ISSUES
+// 1)no pude loggear la data con 'getMunicipio()' traida del municipiosContext.
+// por lo cual no estoy pudiendo extraer la informacion del elemento 'municipio' importado del context
+
+// 2)Workaround con 'getWeatherOfMunicipio()' . Asi puedo loggear la data del clima del municipio seleccionado.
+// Pero no puedo extraerla al elemento <MunicipioItem />.
+// Entiendo que quizas deberia actualizar la data que inserto en <MunicipioItem /> segun esté undefined o no
+//  Hacerlo en algun update/hook con useEffect pero no se cuando/como.
+//  3)La estoy llamando mal a la data para ese elemento, la cual no puedo extraer de la funcion 'getWeatherOfMunicipio()'
+//  Entiendo que seguro son errores elementales, pero como que no lo estoy viendo
 
 const Search = () => {
   //VARIABLES

@@ -106,7 +106,7 @@ const Search = () => {
     );
     oneMunicipioWeather = res.data;
     console.log(`getWeatherOfMunicipio(). selected municipio data`, res.data);
-    console.log(`oneMunicipioWeather`, oneMunicipioWeather);
+    return res.data;
   };
 
   useEffect(() => {
@@ -114,21 +114,37 @@ const Search = () => {
     onSearchChange("");
   }, [onSearchChange]);
 
+  // useEffect(() => {
+  //   // Simulate initial load.
+  //   console.log(
+  //     `municipiosContext.getMunicipio()`,
+  //     municipiosContext.getMunicipio()
+  //   );
+  // }, [onChange]);
+
   //FORM SUBMIT
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(`selected options from submit`, selectedOptions);
     console.log(`codigoineOfSelected from submit`, codigoineOfSelected);
     console.log(`codigoIneNoZeros from submit`, codigoIneNoZeros);
-    console.log(`oneMunicipioFromContext`, oneMunicipioFromContext.municipio);
+    console.log(
+      `oneMunicipioFromContext from submit`,
+      oneMunicipioFromContext.municipio
+    );
     getWeatherOfMunicipio();
+    console.log(`oneMunicipioWeather`, oneMunicipioWeather);
+    // municipiosContext.getMunicipio(namesOfSelected.codigoineOfSelected);
+    // console.log(namesOfSelected.codigoineOfSelected);
   };
 
   //CONSOLE.LOGS
   console.log(`selectedOptions`, selectedOptions);
   console.log(`namesOfSelected`, namesOfSelected);
   console.log(`codigoineOfSelected`, codigoineOfSelected);
+  console.log(`oneMunicipioWeather`, oneMunicipioWeather);
 
+  // {(oneMunicipioWeather !== undefined)  ? ( {const { temperatura_actual, lluvia } = oneMunicipioWeather}) : (console.log('hiiiiiiiiii'))}
   //RENDER
   return (
     <div>
@@ -151,7 +167,11 @@ const Search = () => {
 
       <MunicipioItem
         nombre={namesOfSelected}
-        tempActual="dfhsdf"
+        tempActual={
+          oneMunicipioWeather === undefined
+            ? "todavia esta undefined"
+            : `${municipiosContext.municipio.temperatura_actual}`
+        }
         // tempActual="insertar data real de api"
         lluvia="insertar data real de api"
       />

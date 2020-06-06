@@ -36,10 +36,8 @@ const MunicipiosState = (props) => {
     const res = await axios.get(
       `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
       // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
-      //CODIGOINE is in this REST API kind of the ID for each municipio.
-      //I intent to use this later to get the weather conditions from each municipio.
     );
-    console.log(res);
+    console.log(`getMunicipio complete res`, res);
     dispatch({ type: GET_MUNICIPIO, payload: res.data });
   };
 

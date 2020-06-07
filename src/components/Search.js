@@ -118,6 +118,7 @@ const Search = () => {
       `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${codigoIneNoZeros}`
       // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
     );
+
     oneMunicipioWeather = res.data;
     municipio = res.data;
     console.log(`getWeatherOfMunicipio(). selected municipio data`, res.data);
@@ -135,9 +136,8 @@ const Search = () => {
     console.log(`selected options from submit`, selectedOptions);
     console.log(`codigoineOfSelected from submit`, codigoineOfSelected);
     console.log(`codigoIneNoZeros from submit`, codigoIneNoZeros);
-
-    getWeatherOfMunicipio();
-    municipiosContext.getMunicipio(oneMunicipioFromContext.codigoineOfSelected);
+    // getWeatherOfMunicipio();
+    municipiosContext.getMunicipio(codigoIneNoZeros);
   };
 
   //RENDER
@@ -163,11 +163,15 @@ const Search = () => {
       <MunicipioItem
         nombre={namesOfSelected}
         tempActual={
-          oneMunicipioWeather === undefined
+          oneMunicipioFromContext === undefined
             ? "todavia esta undefined"
-            : `${oneMunicipioWeather.municipio}`
+            : `${oneMunicipioFromContext.temperatura_actual}`
         }
-        lluvia="insertar data real de api"
+        lluvia={
+          oneMunicipioFromContext === undefined
+            ? "todavia esta undefined"
+            : `${oneMunicipioFromContext.lluvia}`
+        }
       />
     </div>
   );

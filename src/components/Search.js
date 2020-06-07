@@ -5,7 +5,13 @@ import MunicipiosContext from "../contexts/municipiosContext";
 import MunicipiosState from "../contexts/MunicipiosState";
 import MunicipioItem from "./MunicipioItem";
 import MunicipioCard from "./MunicipioCard";
-import { EuiComboBox, EuiText, EuiButton } from "@elastic/eui";
+import {
+  EuiComboBox,
+  EuiText,
+  EuiButton,
+  EuiFlexGroup,
+  EuiFlexItem,
+} from "@elastic/eui";
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import municipiosContext from "../contexts/municipiosContext";
 
@@ -99,63 +105,45 @@ const Search = () => {
     return codigoIne !== undefined;
   });
 
-  //BORRA LOS CEROS EXTRAS DEL CODIGO INE. SI UNO INGRESA EL NUMERO TAL COMO ES LA API NO LO RECIBE
+  //BORRA LOS CEROS EXTRAS DEL CODIGO INE.
   let codigoIneNoZeros = codigoineOfSelected.map((each) =>
     each.split("").splice(0, 5).join("")
   );
-
-  // WORKAROUND GET WEATHER OF MUNICIPIO
-  // const getWeatherOfMunicipio = async (municipio) => {
-  //   const res = await axios.get(
-  //     `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${codigoIneNoZeros}`
-  //     // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
-  //   );
-  //   oneMunicipioWeather = res.data;
-  //   municipio = res.data;
-  //   console.log(`getWeatherOfMunicipio(). selected municipio data`, res.data);
-  //   return res.data;
-  // };
 
   useEffect(() => {
     // Simulate initial load.
     onSearchChange("");
   }, [onSearchChange]);
 
-  //FORM SUBMIT
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(`selected options from submit`, selectedOptions);
-    console.log(`codigoineOfSelected from submit`, codigoineOfSelected);
-    console.log(`codigoIneNoZeros from submit`, codigoIneNoZeros);
-    // getWeatherOfMunicipio();
-    // municipiosContext.getMunicipio(codigoIneNoZeros);
-  };
-
   //RENDER
   return (
-    <div>
-      <EuiComboBox
-        placeholder="Search asynchronously"
-        async
-        singleSelection
-        options={options}
-        selectedOptions={selectedOptions}
-        isLoading={isLoading}
-        onChange={onChange}
-        onSearchChange={onSearchChange}
-      />
+    <EuiFlexGroup
+      alignItems="center"
+      direction="column"
+      justifyContent="center"
+    >
+      <EuiFlexItem>
+        <EuiComboBox
+          justifyContent="center"
+          placeholder="Search asynchronously"
+          async
+          singleSelection
+          options={options}
+          selectedOptions={selectedOptions}
+          isLoading={isLoading}
+          onChange={onChange}
+          onSearchChange={onSearchChange}
+        />
+      </EuiFlexItem>
 
-      <MunicipioCard
-        nombre={namesOfSelected}
-        tempActual={oneMunicipioFromContext.temperatura_actual}
-        lluvia={oneMunicipioFromContext.lluvia}
-      />
-      {/* <MunicipioCard
-        nombre={namesOfSelected}
-        tempActual={oneMunicipioFromContext.temperatura_actual}
-        lluvia={oneMunicipioFromContext.lluvia}
-      /> */}
-    </div>
+      <EuiFlexItem>
+        <MunicipioCard
+          nombre={namesOfSelected}
+          tempActual={oneMunicipioFromContext.temperatura_actual}
+          lluvia={oneMunicipioFromContext.lluvia}
+        />
+      </EuiFlexItem>
+    </EuiFlexGroup>
   );
 };
 

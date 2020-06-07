@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div>
       <EuiText grow={false}>
-        <h1>Clima en la provincia de Barcelona</h1>
+        <h1>Clima en Barcelona</h1>
         <h2>Por favor seleccione un municipio</h2>
       </EuiText>
       <Search />

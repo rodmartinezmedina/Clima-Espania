@@ -144,6 +144,7 @@ const Search = () => {
       <EuiComboBox
         placeholder="Search asynchronously"
         async
+        singleSelection
         options={options}
         selectedOptions={selectedOptions}
         isLoading={isLoading}

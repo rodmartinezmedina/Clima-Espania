@@ -17,10 +17,7 @@ const MunicipioCard = (props) => {
               <p>Probabilidades de lluvia:{props.lluvia} %</p>
             </>
           }
-          onClick={() => window.alert("Card clicked")}
-          // <h1>Nombre de municipio: {props.nombre}</h1>
-          // <h2> Temperatura Actual: {props.tempActual}</h2>
-          // <h2>Probabilidades de lluvia: {props.lluvia}</h2>
+          // onClick={() => window.alert("Card clicked")}
         />
       </EuiFlexItem>
     </EuiFlexGroup>

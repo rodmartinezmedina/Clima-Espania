@@ -11,6 +11,7 @@ import {
   EuiButton,
   EuiFlexGroup,
   EuiFlexItem,
+  EuiPageContent,
 } from "@elastic/eui";
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import municipiosContext from "../contexts/municipiosContext";
@@ -117,15 +118,11 @@ const Search = () => {
 
   //RENDER
   return (
-    <EuiFlexGroup
-      alignItems="center"
-      direction="column"
-      justifyContent="center"
-    >
+    <EuiFlexGroup direction="column">
       <EuiFlexItem>
         <EuiComboBox
-          justifyContent="center"
-          placeholder="Search asynchronously"
+          fullWidth="true"
+          placeholder="Buscar Municipio..."
           async
           singleSelection
           options={options}
@@ -135,7 +132,6 @@ const Search = () => {
           onSearchChange={onSearchChange}
         />
       </EuiFlexItem>
-
       <EuiFlexItem>
         <MunicipioCard
           nombre={namesOfSelected}

@@ -34,14 +34,12 @@
   padding-bottom: 20px;
 }
 
-#combo-box {
-  color: white;
-}
-
 #search-box {
+  color: #0f2557;
 }
 
 #municipio-card {
+  color: white;
   background-color: #28559a;
 }
 
@@ -50,8 +48,10 @@
 }
 #municipio-card h2 {
   color: #fdee30;
+  font-size: 22px;
 }
 
 #municipio-card p {
   font-weight: 400;
+  font-size: 18px;
 }

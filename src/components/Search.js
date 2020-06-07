@@ -1,40 +1,24 @@
 import "@elastic/eui/dist/eui_theme_light.css";
 import "@babel/polyfill";
-import axios from "axios";
 import MunicipiosContext from "../contexts/municipiosContext";
 import MunicipiosState from "../contexts/MunicipiosState";
 import MunicipioCard from "./MunicipioCard";
-import {
-  EuiComboBox,
-  EuiText,
-  EuiButton,
-  EuiFlexGroup,
-  EuiFlexItem,
-  EuiPageContent,
-} from "@elastic/eui";
+import { EuiComboBox, EuiText, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import React, { useState, useEffect, useCallback, useContext } from "react";
-import municipiosContext from "../contexts/municipiosContext";
 import "../App.css";
-
-// REST API ADRESS FORGETTING WEATHER INFO ABOUT EACH MUNICIPIO OF BARCELONA
-// https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/[ID]
-// 08= BARCELONA PROVINCE CODE IN API
-// ID = CODIGOINE PROPERTY THAT EACH MUNICIPIO HAS
-
-// A TRABAJAR
 
 const Search = () => {
   //CONTEXT
   const municipiosContext = useContext(MunicipiosContext);
 
-  //USESTATE
+  //USE STATE
   const [selectedOptions, setSelected] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [options, setOptions] = useState([]);
 
+  //VARIABLES
   let searchTimeout;
 
-  //VARIABLES
   const {
     searchMunicipios,
     getMunicipio,
@@ -50,12 +34,12 @@ const Search = () => {
     return { label: `${municipio.NOMBRE}` };
   });
 
+  //USE EFFECTS
   useEffect(() => {
-    console.log(codigoIneNoZeros);
-    municipiosContext.getMunicipio(codigoIneNoZeros);
+    console.log(codigoineOfSelected);
+    municipiosContext.getMunicipio(codigoineOfSelected);
   }, [selectedOptions]);
 
-  //FECTH DATA. ALL MUNICIPIOS
   useEffect(() => {
     return municipiosContext.searchMunicipios();
   }, []);
@@ -88,28 +72,23 @@ const Search = () => {
   );
 
   //GETS NAME OF SELECTED MUNICIPIO
-  let namesOfSelected = selectedOptions.map((option) => {
+  let nameOfSelected = selectedOptions.map((option) => {
     return option.label;
   });
 
-  // GET CODIGOINE of ALL MUNICIPIOS. DO NOT DELETE
+  // GETS CODIGOINE of ALL MUNICIPIOS. SPLICED (API DOESN'T RECOGNIZE CODIGOINE WITH ZEROS)
   let allCodigoines = municipiosFromContext.map((municipio) => {
     let municipioCodigoine;
-    if (municipio.NOMBRE.includes(namesOfSelected)) {
+    if (municipio.NOMBRE.includes(nameOfSelected)) {
       municipioCodigoine = municipio.CODIGOINE;
-      return municipioCodigoine;
+      return municipioCodigoine.split("").splice(0, 5).join("");
     }
   });
 
-  //GETS CODIGOINE OF SELECTED ELEMENT/S
+  //GETS CODIGOINE OF SELECTED ELEMENT
   let codigoineOfSelected = allCodigoines.filter((codigoIne) => {
     return codigoIne !== undefined;
   });
-
-  //BORRA LOS CEROS EXTRAS DEL CODIGO INE.
-  let codigoIneNoZeros = codigoineOfSelected.map((each) =>
-    each.split("").splice(0, 5).join("")
-  );
 
   useEffect(() => {
     // Simulate initial load.
@@ -133,9 +112,9 @@ const Search = () => {
           onSearchChange={onSearchChange}
         />
       </EuiFlexItem>
-      <EuiFlexItem id="combo-box">
+      <EuiFlexItem id="municipio-card">
         <MunicipioCard
-          nombre={namesOfSelected}
+          nombre={nameOfSelected}
           tempActual={oneMunicipioFromContext.temperatura_actual}
           lluvia={oneMunicipioFromContext.lluvia}
         />

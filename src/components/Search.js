@@ -3,8 +3,8 @@ import "@babel/polyfill";
 import axios from "axios";
 import MunicipiosContext from "../contexts/municipiosContext";
 import MunicipiosState from "../contexts/MunicipiosState";
-import MunicipioCard from "../components/MunicipioCard";
 import MunicipioItem from "./MunicipioItem";
+import MunicipioCard from "./MunicipioCard";
 import { EuiComboBox, EuiText, EuiButton } from "@elastic/eui";
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import municipiosContext from "../contexts/municipiosContext";
@@ -13,18 +13,6 @@ import municipiosContext from "../contexts/municipiosContext";
 // https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/[ID]
 // 08= BARCELONA PROVINCE CODE IN API
 // ID = CODIGOINE PROPERTY THAT EACH MUNICIPIO HAS
-
-//BRANCH build-card
-//ISSUES
-// 1)no pude loggear la data con 'getMunicipio()' traida del municipiosContext.
-// por lo cual no estoy pudiendo extraer la informacion del elemento 'municipio' importado del context
-
-// 2)Workaround con 'getWeatherOfMunicipio()' . Asi puedo loggear la data del clima del municipio seleccionado.
-// Pero no puedo extraerla al elemento <MunicipioItem />.
-// Entiendo que quizas deberia actualizar la data que inserto en <MunicipioItem /> segun esté undefined o no
-//  Hacerlo en algun update/hook con useEffect pero no se cuando/como.
-//  3)La estoy llamando mal a la data para ese elemento, la cual no puedo extraer de la funcion 'getWeatherOfMunicipio()'
-//  Entiendo que seguro son errores elementales, pero como que no lo estoy viendo
 
 // A TRABAJAR
 
@@ -156,27 +144,17 @@ const Search = () => {
         onChange={onChange}
         onSearchChange={onSearchChange}
       />
-      <form onSubmit={onSubmit} className="form text-center">
-        <input
-          type="submit"
-          value="Mostrar Informacion meteorologica"
-          className="btn btn-primary btn-block"
-        />
-      </form>
 
-      <MunicipioItem
+      <MunicipioCard
         nombre={namesOfSelected}
-        tempActual={
-          oneMunicipioFromContext === undefined
-            ? "todavia esta undefined"
-            : `${oneMunicipioFromContext.temperatura_actual}`
-        }
-        lluvia={
-          oneMunicipioFromContext === undefined
-            ? "todavia esta undefined"
-            : `${oneMunicipioFromContext.lluvia}`
-        }
+        tempActual={oneMunicipioFromContext.temperatura_actual}
+        lluvia={oneMunicipioFromContext.lluvia}
       />
+      {/* <MunicipioCard
+        nombre={namesOfSelected}
+        tempActual={oneMunicipioFromContext.temperatura_actual}
+        lluvia={oneMunicipioFromContext.lluvia}
+      /> */}
     </div>
   );
 };

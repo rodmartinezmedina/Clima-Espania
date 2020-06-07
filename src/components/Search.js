@@ -36,6 +36,7 @@ const Search = () => {
   const [selectedOptions, setSelected] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [options, setOptions] = useState([]);
+
   let searchTimeout;
 
   //VARIABLES
@@ -56,6 +57,7 @@ const Search = () => {
 
   useEffect(() => {
     console.log(codigoIneNoZeros);
+    municipiosContext.getMunicipio(codigoIneNoZeros);
   }, [selectedOptions]);
 
   //FECTH DATA. ALL MUNICIPIOS
@@ -63,7 +65,7 @@ const Search = () => {
     return municipiosContext.searchMunicipios();
   }, []);
 
-  //FUNCTIONS -
+  //FUNCTIONS
   // EUI ComboBox
   const onChange = (selectedOptions) => {
     setSelected(selectedOptions);
@@ -138,7 +140,7 @@ const Search = () => {
     console.log(`codigoineOfSelected from submit`, codigoineOfSelected);
     console.log(`codigoIneNoZeros from submit`, codigoIneNoZeros);
     // getWeatherOfMunicipio();
-    municipiosContext.getMunicipio(codigoIneNoZeros);
+    // municipiosContext.getMunicipio(codigoIneNoZeros);
   };
 
   //RENDER

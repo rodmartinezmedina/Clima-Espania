@@ -29,9 +29,16 @@ import municipiosContext from "../contexts/municipiosContext";
 // A TRABAJAR
 
 const Search = () => {
-  //VARIABLES
+  //CONTEXT
   const municipiosContext = useContext(MunicipiosContext);
 
+  //USESTATE
+  const [selectedOptions, setSelected] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  const [options, setOptions] = useState([]);
+  let searchTimeout;
+
+  //VARIABLES
   const {
     searchMunicipios,
     getMunicipio,
@@ -47,16 +54,14 @@ const Search = () => {
     return { label: `${municipio.NOMBRE}` };
   });
 
+  useEffect(() => {
+    console.log(codigoIneNoZeros);
+  }, [selectedOptions]);
+
   //FECTH DATA. ALL MUNICIPIOS
   useEffect(() => {
     return municipiosContext.searchMunicipios();
   }, []);
-
-  //USESTATE
-  const [selectedOptions, setSelected] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-  const [options, setOptions] = useState([]);
-  let searchTimeout;
 
   //FUNCTIONS -
   // EUI ComboBox
@@ -108,8 +113,6 @@ const Search = () => {
   let codigoIneNoZeros = codigoineOfSelected.map((each) =>
     each.split("").splice(0, 5).join("")
   );
-
-  let oneMunicipioWeather;
 
   // WORKAROUND GET WEATHER OF MUNICIPIO
   // const getWeatherOfMunicipio = async (municipio) => {

@@ -26,6 +26,8 @@ import municipiosContext from "../contexts/municipiosContext";
 //  3)La estoy llamando mal a la data para ese elemento, la cual no puedo extraer de la funcion 'getWeatherOfMunicipio()'
 //  Entiendo que seguro son errores elementales, pero como que no lo estoy viendo
 
+// A TRABAJAR
+
 const Search = () => {
   //VARIABLES
   const municipiosContext = useContext(MunicipiosContext);
@@ -109,21 +111,17 @@ const Search = () => {
 
   let oneMunicipioWeather;
 
-  //GET MUNICIPIO FUNCTION
-  // municipiosContext.getMunicipio({namesOfSelected}.{codigoineOfSelected});
-
   // WORKAROUND GET WEATHER OF MUNICIPIO
-  const getWeatherOfMunicipio = async (municipio) => {
-    const res = await axios.get(
-      `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${codigoIneNoZeros}`
-      // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
-    );
-
-    oneMunicipioWeather = res.data;
-    municipio = res.data;
-    console.log(`getWeatherOfMunicipio(). selected municipio data`, res.data);
-    return res.data;
-  };
+  // const getWeatherOfMunicipio = async (municipio) => {
+  //   const res = await axios.get(
+  //     `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${codigoIneNoZeros}`
+  //     // `https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/${municipio.CODIGOINE}`
+  //   );
+  //   oneMunicipioWeather = res.data;
+  //   municipio = res.data;
+  //   console.log(`getWeatherOfMunicipio(). selected municipio data`, res.data);
+  //   return res.data;
+  // };
 
   useEffect(() => {
     // Simulate initial load.

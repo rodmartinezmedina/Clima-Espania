@@ -3,7 +3,6 @@ import "@babel/polyfill";
 import axios from "axios";
 import MunicipiosContext from "../contexts/municipiosContext";
 import MunicipiosState from "../contexts/MunicipiosState";
-import MunicipioItem from "./MunicipioItem";
 import MunicipioCard from "./MunicipioCard";
 import {
   EuiComboBox,
@@ -15,6 +14,7 @@ import {
 } from "@elastic/eui";
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import municipiosContext from "../contexts/municipiosContext";
+import "../App.css";
 
 // REST API ADRESS FORGETTING WEATHER INFO ABOUT EACH MUNICIPIO OF BARCELONA
 // https://www.el-tiempo.net/api/json/v2/provincias/08/municipios/[ID]
@@ -121,6 +121,7 @@ const Search = () => {
     <EuiFlexGroup direction="column">
       <EuiFlexItem>
         <EuiComboBox
+          id="search-box"
           fullWidth="true"
           placeholder="Buscar Municipio..."
           async
@@ -132,7 +133,7 @@ const Search = () => {
           onSearchChange={onSearchChange}
         />
       </EuiFlexItem>
-      <EuiFlexItem>
+      <EuiFlexItem id="combo-box">
         <MunicipioCard
           nombre={namesOfSelected}
           tempActual={oneMunicipioFromContext.temperatura_actual}

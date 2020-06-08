@@ -7,17 +7,19 @@ import Search from "./Search";
 
 const Home = () => {
   return (
-    <EuiFlexGroup justifyContent="center" direction="column" id="homepage">
-      <EuiFlexItem id="home-header">
-        <EuiText>
-          <h1>CLIMA EN BARCELONA</h1>
-          <h2>Por favor seleccione un municipio</h2>
-        </EuiText>
-      </EuiFlexItem>
-      <EuiFlexItem>
-        <Search />
-      </EuiFlexItem>
-    </EuiFlexGroup>
+    <div id="home-container">
+      <EuiFlexGroup justifyContent="center" direction="column">
+        <EuiFlexItem id="home-header">
+          <EuiText>
+            <h1>CLIMA EN BARCELONA</h1>
+            <h2>Por favor seleccione un municipio</h2>
+          </EuiText>
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <Search />
+        </EuiFlexItem>
+      </EuiFlexGroup>
+    </div>
   );
 };
 

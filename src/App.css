@@ -3,8 +3,9 @@
   font-family: sofia-pro, sans-serif;
 }
 
-#homepage {
+#home-container {
   background-color: #0f2557;
+  height: 100vh;
 }
 
 #home-header {

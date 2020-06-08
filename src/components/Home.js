@@ -7,7 +7,7 @@ import Search from "./Search";
 
 const Home = () => {
   return (
-    <div id="home-container">
+    <div className="home-container">
       <EuiFlexGroup justifyContent="center" direction="column">
         <EuiFlexItem id="home-header">
           <EuiText>

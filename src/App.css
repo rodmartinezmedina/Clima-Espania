@@ -1,15 +1,15 @@
 .App {
   text-align: center;
-  font-family: sofia-pro, sans-serif;
+  font-family: bree, sans-serif;
 }
 
-#home-container {
-  background-color: #0f2557;
+.home-container {
+  background-color: #1d2228;
   height: 100vh;
 }
 
 #home-header {
-  background-color: #28559a;
+  background-color: #e1e2e2;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -18,20 +18,21 @@
 }
 
 #home-header h1 {
-  color: white;
-  font-size: 34px;
-  font-family: sofia-pro, sans-serif;
-  font-weight: 400;
   padding-top: 25px;
-
   margin-bottom: -30px;
+  color: #fb8122;
+  font-size: 34px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.4px;
 }
 
 #home-header h2 {
-  color: white;
+  color: #1d2228;
   font-size: 22px;
-  font-family: sofia-pro-condensed, sans-serif;
-  font-weight: 300;
+  font-weight: 200;
+  font-style: normal;
+  letter-spacing: 0.2px;
   padding-bottom: 20px;
 }
 
@@ -41,18 +42,20 @@
 
 #municipio-card {
   color: white;
-  background-color: #28559a;
+  background-color: #e1e2e2;
+  letter-spacing: 0.6px;
 }
 
 #weather-icon {
-  color: #fdee30;
+  color: #fb8122;
 }
 #municipio-card h2 {
-  color: #fdee30;
+  color: #fb8122;
   font-size: 22px;
 }
 
 #municipio-card p {
+  color: #1d2228;
   font-weight: 400;
   font-size: 18px;
 }
